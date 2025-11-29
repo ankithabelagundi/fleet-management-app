@@ -23,5 +23,103 @@
 </label>
 <button onclick="addFleet()">Add Fleet</button>
     </div>
+    <div id="navbar">
+        <select  id="filterCategory" onchange="applyfilters()">
+            <option value="Auto">Auto</option>
+            <option value="Car">Car</option>
+            <option value="Truck">Truck</option>
+            <option value="Bus">Bus</option>
+        </select>
+        <select  id="filterAvailablity" onchange="applyfilters()">
+            <option value="Auto">Auto</option>
+            <option value="Car">Car</option>
+            <option value="Truck">Truck</option>
+            <option value="Bus">Bus</option>
+
+        </select>
+        <select  id="filterAvalilblity" onchange="applyfilters()">
+            <option value="All">All Availablity</option>
+            <option value="Available">Available</option>
+            <option value="Unavailable">Unavailable</option>
+        </select>
+        <button onclick="clearFilters()">ClearFilters</button>
+    </div>
+    <script>
+        let fleetData= [];
+        let filteredData = [];
+        function addFleet(){
+            let reg=document.getElementById("reg").value;
+            let Category=document.getElementById("Category").value;
+            let driver=document.getElementById("driver").value;
+            let Available=document.getElementById("Available").checked;
+            if(reg===""||category===""||driver==="") {
+                alert("All fields are required!");
+                return;
+            }
+            let obj= { reg,Category,driver,Available};
+            fleetData.push(obj);
+            document.getElementById("reg").value="";
+            document.getElementById("driver").value="";
+            document.getElementById("Category").value="";
+            document.getElementById("Available").checked=false;
+        render();
+        }
+        function render(){
+            let container=document.getElementById("fleet-containet");
+            container.innerHTML="";
+            data.forEach((item,index)=>{
+                let card=document.getElementById("div");
+                card.className="card";
+                card.innerHTML=`
+                <h3>${item.reg}</h3>
+                <p><strong>Category:</strong>${item.Category}</p>
+                <p><strong>Driver:</strong>${item.driver}</p>
+                <p><strong>Availabel:</strong>${item.Available ? "Yes": "No"}</p>
+            <button onclick="updateDriver(${index})">Update Driver</button>
+            <button onclick="toggleAvailablity"></button>
+            <button onclick="deleteVechile${index})">Delete</button>
+            `;
+            container.appendChild(card);
+            });
+        }
+        function updateDriver(i){
+            let newDriver=promp("Enter new driver name:");
+            if (newDriver===null)return;
+            if(newDriver.trim()==="") {
+                alert("Driver name cannot be empty")
+                return;
+            }
+        fleetData[i].driver=
+        newDriver.trim();
+    render();
+        }
+        function deleteVechile(){
+
+            let confrimDelete=confrim("Are You sure you want to Delete this Vechile?");
+            if(confrimDelete){
+                fleetData.splice(i,1);
+                render();
+
+            }
+        }
+        function applyfilters(){
+
+            let c= document.getElementById("filterCategory").value;
+            filteredData=fleetData.filter(item=>{
+                let matchCategory=(c==="All"||item.category===c);
+                let matchAvailablity=(a==="All")||
+                (a==="Available"&&
+                    item.Available) ||
+                    (a==="Unavailable"&&!item.Available);
+                    return matchCategory &&matchAvailablity;
+            });
+            render(filteredData);
+        }
+        function clearFilters(){
+            document.getElementById("filterCategory").value="All";
+             document.getElementById("filterAvailablity").value="All";
+             render(fleetData);
+        }
+    </script>
 </body>
 </html>
