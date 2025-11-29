@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Management App</title>
+    <style>
+        body{
+            font-family: 'Times New Roman', Times, serif;
+            background-color: aquamarine;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        h1{
+            margin-bottom: auto;
+
+        }
+        button{
+            padding: 10px 15px;
+            font-size: 10px;
+            cursor:pointer;
+            background-color: blanchedalmond;
+            border: none;
+        }
+        button:hover{
+            background-color: greenyellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome To Fleet Management App</h1>
+    <button id="btn">Go To Admin Page</button>
+    <h2>Login Page</h2>
+    <input type="email" id="email" placeholder="Enter Email">
+    <input type="password" id="password" placeholder="Enter Password">
+    <br><br>
+    <button onclick="login()">Login</button>
+<script>
+    function login(){
+        let email= document.getElementById("email").value;
+        let password=document.getElementById("password").value;
+        if(email==="admin@gmail.com" && password==="admin1234"){
+            alert("login Sucess");
+        } else{
+            alert("wrong email or password");
+        }
+    }
+    document.getElementById("btn").addEventListener("click", () =>{
+     window.location.href = "admin.html";})
+</script>
+</body>
+</html>
